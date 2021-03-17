@@ -1,0 +1,151 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define pb push_back
+#define eb emplace_back
+#define mp make_pair
+#define pw2(x) ((x)*(x))
+#define max3(a, b, c) max(a, max(b, c))
+#define min3(a, b, c) min(a, min(b, c))
+#define fr(i, n) for(int i = 0; i < int(n); ++ i)
+#define fi first
+#define se second
+#define ins insert
+
+//#define int int64_t
+
+//#define FIlE_in
+//#define FILE_out
+
+#ifdef FIlE_in
+    char file_in[] = "C:\\Users\\pshpi\\OneDrive\\Desktop\\in.txt";
+#endif // FIlE_in
+#ifdef FILE_out
+    char file_out[] = "C:\\Users\\pshpi\\OneDrive\\Desktop\\out.txt";
+#endif // FILE_out
+
+typedef long long ll;
+typedef pair<int, int> pii;
+
+const int INF = 2e9;
+const ll INF64 = 1e18;
+const double PI = 3.14159265359;
+const double EPS = 1e-9;
+const int MOD = 1e9+7;
+
+template<typename type>
+
+type next()
+{type x; cin >> x; return x;}
+
+int next()
+{int x; cin >> x; return x;}
+
+ll lnext()
+{ll x; cin >> x; return x;}
+
+void test(){
+    int n;
+    cin >> n;
+    map<int, int> a;
+    bool fl = false;
+    for(int i = 0; i < n; i ++){
+        int x;
+        cin >> x;
+        if (x % 2 == 0) a[x] ++, fl = true;
+    }
+
+    if (!fl){
+        cout << 0 << "\n";
+        return;
+    }
+    map<int, int> d;
+    map<int, int> :: iterator it = a.end();
+    it --;
+    int ans = 0;
+//    cout << "YES" << endl;
+    while (it != a.begin()){
+//        (*it).se += d[(*it).fi];
+        auto p = *it;
+        int x = p.fi, cnt = p.se;
+        if (cnt == 0) {
+            it --;
+            continue;
+        }
+//        cout << endl << "----" << endl;
+//        watch(x);
+//        watch(cnt);
+//        cout << "----" << endl;
+        while (x > 0){
+//            cout << "11" << endl;
+//            watch(x);
+            ans += 1;
+            x /= 2;
+            if (x % 2 == 1) break;
+            if (a[x] != 0){
+                a[x] += cnt;
+                break;
+            }
+
+        }
+        it --;
+    }
+
+    auto p = *it;
+    int x = p.fi, cnt = p.se;
+    if (cnt == 0){
+        cout << ans << "\n";
+        return;
+    }
+//    cout << endl << "----" << endl;
+//    watch(x);
+//    watch(cnt);
+//    cout << "----" << endl;
+    while (x > 0){
+//        cout << "22" << endl;
+//        watch(x);
+        ans += 1;
+        x /= 2;
+        if (x % 2 == 1) break;
+        if (a[x] != 0){
+            a[x] += cnt;
+            break;
+        }
+
+    }
+
+    cout << ans << "\n";
+
+}
+
+int32_t main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    #ifdef FIlE_in
+        freopen(file_in, "r", stdin);
+    #endif // FIlE_in
+    #ifdef FILE_out
+        freopen(file_out, "w", stdout);
+    #endif // FILE_out
+
+    int t;
+    cin >> t;
+
+    for (int i = 0; i < t; i ++){
+        test();
+    }
+}
+/*
+1
+2
+10 16
+
+
+
+*/
+

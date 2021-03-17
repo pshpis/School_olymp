@@ -1,0 +1,72 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <map>
+
+#define watch(x) cout << (#x) << " is " << (x) << endl
+#define pb(x) push_back(x)
+#define pow2(x) ((x)*(x))
+#define max3(a, b, c) max(a, max(b, c))
+#define min3(a, b, c) min(a, min(b, c))
+#define fr(i, n) for (int (i)=0; i<int(n); i++)
+
+const bool isDbg=false;
+
+const int INF=1e9+7;
+
+typedef long long lint;
+
+using namespace std;
+
+template<typename type>
+
+type next()
+{type x;cin>>x;return x;}
+
+int next()
+{int x;cin>>x;return x;}
+
+lint lnext()
+{lint x;cin>>x;return x;}
+
+int main()
+{
+    ios::sync_with_stdio(false);
+    if (isDbg) freopen("inputC.txt", "r", stdin);
+    int n=next(), m=next();
+    int s=next()-1, f=next()-1;
+	vector< vector< pair<int,int> > > g (n);
+	for (int i=0; i<m; i++)
+    {
+        int x=next()-1, y=next()-1, len=next();
+        pair<int, int> a1={y, len}, a2={x,len};
+        g[x].pb(a1);
+        g[y].pb(a2);
+    }
+	vector<int> d(n, INF), p(n);
+	d[s]=0;
+	set<pair<int, int>> point;
+//    pair<int, int> fake={d[s], s};
+    point.insert({d[s], s});
+	while (!point.empty())
+    {
+		int v=(*point.begin()).second;
+		point.erase(point.begin());
+		for (int j=0; j<g[v].size(); j++)
+        {
+			int t=g[v][j].first, len=g[v][j].second;
+			if (d[t]>d[v]+len)
+			{
+			    point.erase({d[t], t});
+				d[t]=d[v]+len;
+				p[t]=v;
+				point.insert({d[t], t});
+			}
+		}
+	}
+	if (d[f]==INF) cout<<-1;
+	else cout<<d[f];
+}
+
